@@ -4,3 +4,9 @@ C:\Users\Phreeman\source\repos\TetrisApp\bin\Debug\TetrisApp.pdb
 C:\Users\Phreeman\source\repos\TetrisApp\obj\Debug\TetrisApp.csprojAssemblyReference.cache
 C:\Users\Phreeman\source\repos\TetrisApp\obj\Debug\TetrisApp.exe
 C:\Users\Phreeman\source\repos\TetrisApp\obj\Debug\TetrisApp.pdb
+C:\Users\Phreeman\console-tetris\TetrisApp\obj\Debug\TetrisApp.csprojAssemblyReference.cache
+C:\Users\Phreeman\console-tetris\TetrisApp\obj\Debug\TetrisApp.exe
+C:\Users\Phreeman\console-tetris\TetrisApp\obj\Debug\TetrisApp.pdb
+C:\Users\Phreeman\console-tetris\TetrisApp\bin\Debug\TetrisApp.exe.config
+C:\Users\Phreeman\console-tetris\TetrisApp\bin\Debug\TetrisApp.exe
+C:\Users\Phreeman\console-tetris\TetrisApp\bin\Debug\TetrisApp.pdb

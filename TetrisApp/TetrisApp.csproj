@@ -62,7 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FigureMoving.cs" />
-    <Compile Include="GameData.cs" />
+    <Compile Include="GameStatistics\GameData.cs" />
+    <Compile Include="GameStatistics\PlayerResults.cs" />
     <Compile Include="Helpers\DrawTetra.cs" />
     <Compile Include="Helpers\NewFigure.cs" />
     <Compile Include="Helpers\PlaySound.cs" />
@@ -75,11 +76,11 @@
     <Compile Include="Map\MapMechanics.cs" />
     <Compile Include="Objects\InfoArea.cs" />
     <Compile Include="Objects\Itetra.cs" />
+    <Compile Include="Objects\ITetramino.cs" />
     <Compile Include="Objects\Jtetra.cs" />
     <Compile Include="Objects\Ltetra.cs" />
     <Compile Include="Objects\Otetra.cs" />
     <Compile Include="Objects\Stetra.cs" />
-    <Compile Include="Objects\Tetramino.cs" />
     <Compile Include="Objects\Ttetra.cs" />
     <Compile Include="Objects\Ztetra.cs" />
     <Compile Include="Program.cs" />

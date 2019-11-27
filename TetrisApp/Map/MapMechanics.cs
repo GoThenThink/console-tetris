@@ -7,7 +7,7 @@ namespace TetrisApp.Map
     class MapMechanics
     {
         //Проверка на столкновение текущей фигуры с построенными блоками.
-        public bool IntersectionCheck(Tetramino currentFigure, bool[,] buildingArea)
+        public bool IntersectionCheck(ITetramino currentFigure, bool[,] buildingArea)
         {
             if (currentFigure.CurrentRow + currentFigure.Body.GetLength(0) >= buildingArea.GetLength(0))
             {
@@ -29,7 +29,7 @@ namespace TetrisApp.Map
         }
 
         //Метод, отвечающий за размещение фигуры среди построенных блоков.
-        public void PlaceCurrentFigure(Tetramino currentFigure, bool[,] buildingArea)
+        public void PlaceCurrentFigure(ITetramino currentFigure, bool[,] buildingArea)
         {
             for (int row = 0; row < currentFigure.Body.GetLength(0); row++)
             {
@@ -102,5 +102,24 @@ namespace TetrisApp.Map
                 }
             }
         }
+
+        //Метод, описывающий условие конца игры.
+        public bool GameOver(ITetramino currentFigure, bool[,] buildingArea)
+        {
+            bool gameOver = false;
+            if (currentFigure.CurrentRow == 0)
+                for (int row = 0; row < currentFigure.Body.GetLength(0); row++)
+                    for (int col = 0; col < currentFigure.Body.GetLength(1); col++)
+                    {
+                        if (currentFigure.Body[row, col] == true & buildingArea[currentFigure.CurrentRow + row, currentFigure.CurrentCol + col] == true)
+                        {
+                            return true;
+                        }
+                        else gameOver = false;
+                    }
+            else gameOver = false;
+            return gameOver;
+        }
+
     }
 }

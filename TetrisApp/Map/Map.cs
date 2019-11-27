@@ -8,13 +8,14 @@ namespace TetrisApp.Map
     //Класс, представляющий объекты на карте.
     class Map : IMap
     {
-        public List<Tetramino> ListOfTetramino { get; set; }    //Список фигур.
+        public List<ITetramino> ListOfTetramino { get; set; }    //Список фигур.
         public bool[,] BuildingArea { get; set; }               //Область поставленных блоков.
         public InfoArea InfoArea { get; set; }                  //Панель информации.
-        public Tetramino CurrentFigure { get; set; }            //Текущая фигура.
-        public Tetramino NextFigure { get; set; }               //Следующая фигура.
+        public ITetramino CurrentFigure { get; set; }            //Текущая фигура.
+        public ITetramino NextFigure { get; set; }               //Следующая фигура.
         public NewFigure NewFigureRng { get; set; }             //Генератор следующей фигуры.
         public MapMechanics MapMechanics { get; set; }          //Игровые механики.
+        public GameData GameData { get; set; }                  //Статистика.
 
     }
 }

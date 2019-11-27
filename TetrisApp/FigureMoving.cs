@@ -34,7 +34,7 @@ namespace TetrisApp
         }
 
         // Метод, отвечающий за поворот фигуры против часовой стрелке.
-        public static void RotateLeft(Tetramino currentFigure, bool[,] buildingArea)
+        public static void RotateLeft(ITetramino currentFigure, bool[,] buildingArea)
         {
             int nextState = currentFigure.State;                                    //Запоминаем номер текущего положения фигуры во временную переменную.
             if (currentFigure.State - 1 < 1)                                        //Делаем проверку на выход из массива положений фигуры.
@@ -42,7 +42,7 @@ namespace TetrisApp
                 nextState = currentFigure.CountState;                               //Изменяем номер текущего положения на -1 (выполняем поворот против часовой стрелки).
             }
             else nextState--;                                                       //Изменяем номер текущего положения на -1 (выполняем поворот против часовой стрелки).
-            Tetramino nextStateCurFig = (Tetramino)currentFigure.Clone();           //Создаем копию текущей фигуры.
+            ITetramino nextStateCurFig = (ITetramino)currentFigure.Clone();         //Создаем копию текущей фигуры.
             nextStateCurFig.Body = currentFigure.FigureState[nextState];            //Приводим новую фигуру в соответствии с измененным номером положения (уже повернутая).
 
             if (RotateCheck(nextStateCurFig, buildingArea))                         //Проверяем не будет ли ошибок, если фигуру повернуть.
@@ -53,7 +53,7 @@ namespace TetrisApp
         }
 
         // Метод, отвечающий за поворот фигуры по часовой стрелке.
-        public static void RotateRight(Tetramino currentFigure, bool[,] buildingArea)
+        public static void RotateRight(ITetramino currentFigure, bool[,] buildingArea)
         {
             int nextState = currentFigure.State;
             if (currentFigure.State + 1 > currentFigure.CountState)
@@ -61,7 +61,7 @@ namespace TetrisApp
                 nextState = 1;
             }
             else nextState++;
-            Tetramino nextStateCurFig = (Tetramino)currentFigure.Clone();
+            ITetramino nextStateCurFig = (ITetramino)currentFigure.Clone();
             nextStateCurFig.Body = currentFigure.FigureState[nextState];
 
             if (RotateCheck(nextStateCurFig, buildingArea))
@@ -72,7 +72,7 @@ namespace TetrisApp
         }
 
         // Метод, отвечающий за проверку возможности поворота фигура.
-        public static bool RotateCheck(Tetramino nextCurFig, bool[,] buildingArea)
+        public static bool RotateCheck(ITetramino nextCurFig, bool[,] buildingArea)
         {
             if (nextCurFig.CurrentRow + nextCurFig.Body.GetLength(0) > buildingArea.GetLength(0))           //Если повернутая фигура окажется ниже               
             {                                                                                               //нижней границы поля игры, то возвращаем
@@ -96,14 +96,14 @@ namespace TetrisApp
         }
         
         // Метод, отвечающий за движение фигуры влево.
-        public static void MoveLeft(Tetramino currentFigure, bool[,] buildingArea)
+        public static void MoveLeft(ITetramino currentFigure, bool[,] buildingArea)
         {
             if (MoveLeftCheck(currentFigure, buildingArea))                                                 //Проверяем на предмет ошибок при движении фигуры влево.
                 currentFigure.CurrentCol--;
         }
 
         // Метод, отвечающий за проверку возможности движения фигуры влево.
-        public static bool MoveLeftCheck(Tetramino currentFigure, bool[,] buildingArea)
+        public static bool MoveLeftCheck(ITetramino currentFigure, bool[,] buildingArea)
         {
             bool moveLeftCheck = true;
             for (int i = 0; i < currentFigure.Body.GetLength(0); i++)
@@ -122,14 +122,14 @@ namespace TetrisApp
         }
 
         // Метод, отвечающий за движение фигуры вправо.
-        public static void MoveRight(Tetramino currentFigure, bool[,] buildingArea)
+        public static void MoveRight(ITetramino currentFigure, bool[,] buildingArea)
         {
             if (MoveRightCheck(currentFigure, buildingArea))
                 currentFigure.CurrentCol++;
         }
 
         // Метод, отвечающий за проверку возможности движения фигуры вправо.
-        public static bool MoveRightCheck(Tetramino currentFigure, bool[,] buildingArea)
+        public static bool MoveRightCheck(ITetramino currentFigure, bool[,] buildingArea)
         {
             bool moveRightCheck = true;
             for (int i = 0; i < currentFigure.Body.GetLength(0); i++)
