@@ -6,8 +6,8 @@ namespace TetrisApp.Map
     //Интерфейс, отвечающий за игровую механику.
     interface IMapMechanics
     {
-        bool IntersectionCheck(Tetramino currentFigure, bool[,] buildingArea);
-        void PlaceCurrentFigure(Tetramino currentFigure, bool[,] buildingArea);
+        bool IntersectionCheck(ITetramino currentFigure, bool[,] buildingArea);
+        void PlaceCurrentFigure(ITetramino currentFigure, bool[,] buildingArea);
         int CompletedLines(bool[,] buildingArea);
         void DrawBuildingArea(bool[,] buildingArea);
     }

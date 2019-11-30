@@ -13,10 +13,10 @@ namespace TetrisApp.Objects
         public Dictionary<int, string> Message = new Dictionary<int, string>()
         {
             [0]="",
-            [1] = "",
+            [1]="",
             [2]="2-ое комбо!",
             [3]="3-ое комбо!",
-            [4]="Тетрис!"
+            [4]="Тетрис!    "
         };
 
         public InfoArea(int paW, int paH)
@@ -27,20 +27,20 @@ namespace TetrisApp.Objects
         }
 
         //Метод, отвечающий за отрисовку информационной панели.
-        public void DrawInfoArea(Tetramino nextFigure)
+        public void DrawInfoArea(ITetramino nextFigure, GameData gd)
         {
             ClearInfoArea(InfoAreaCol + 4, 3);
             Console.SetCursorPosition(InfoAreaCol, 1);
             Console.Write("Следующая:");
             DrawTetra.Draw(InfoAreaCol + 4, 3, nextFigure);
             Console.SetCursorPosition(InfoAreaCol, 8);
-            Console.Write("Очки: {0}", GameData.Points);
+            Console.Write("Очки: {0}", gd.Points);
             Console.SetCursorPosition(InfoAreaCol, 10);
-            Console.Write("Линии: {0}", GameData.CompletedLinesNumber);
+            Console.Write("Линии: {0}", gd.CompletedLinesNumber);
             Console.SetCursorPosition(InfoAreaCol, 12);
-            Console.Write("Время: {0:00}:{1:00}", GameData.Time.Minutes, GameData.Time.Seconds);
+            Console.Write("Время: {0:00}:{1:00}", gd.Time.Minutes, gd.Time.Seconds);
             Console.SetCursorPosition(InfoAreaCol, 15);
-            Console.Write(Message[GameData.LastStreak]);
+            Console.Write(Message[gd.LastStreak]);
 
         }
 

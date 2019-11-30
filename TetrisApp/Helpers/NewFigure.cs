@@ -10,15 +10,14 @@ namespace TetrisApp.Helpers
     class NewFigure
     {
         private readonly Random blessRng = new Random();
-        private readonly List<Tetramino> _listOfTetramino;
-        public NewFigure(List<Tetramino> listOfTetramino)
-        {
-            _listOfTetramino = listOfTetramino;
-        }
+        private List<ITetramino> _listOfTetramino;
 
-        public Tetramino GenerateFigure()
+        public ITetramino GenerateFigure()
         {
-            Tetramino temp = _listOfTetramino[blessRng.Next(_listOfTetramino.Count)];
+            _listOfTetramino = new List<ITetramino>() {  new Ltetra(), new Jtetra(), new Ztetra(),
+                                                        new Stetra(), new Ttetra(), new Itetra(),
+                                                        new Otetra() };
+            ITetramino temp = _listOfTetramino[blessRng.Next(_listOfTetramino.Count)];
             temp.CurrentRow = 0;
             temp.CurrentCol = 4;
             return temp;

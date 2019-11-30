@@ -75,11 +75,11 @@
     <Compile Include="Map\MapMechanics.cs" />
     <Compile Include="Objects\InfoArea.cs" />
     <Compile Include="Objects\Itetra.cs" />
+    <Compile Include="Objects\ITetramino.cs" />
     <Compile Include="Objects\Jtetra.cs" />
     <Compile Include="Objects\Ltetra.cs" />
     <Compile Include="Objects\Otetra.cs" />
     <Compile Include="Objects\Stetra.cs" />
-    <Compile Include="Objects\Tetramino.cs" />
     <Compile Include="Objects\Ttetra.cs" />
     <Compile Include="Objects\Ztetra.cs" />
     <Compile Include="Program.cs" />

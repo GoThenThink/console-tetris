@@ -1,5 +1,5 @@
 ﻿using System;
-using TetrisApp.Objects;
+using TetrisApp.Map;
 
 
 namespace TetrisApp
@@ -7,8 +7,7 @@ namespace TetrisApp
     //Интерфейс, отвечающий за процесс игры.
     interface ITetris
     {
+        void MainMenuShow(ITetris tetris);
         void Play();
-        bool GameOver(Tetramino currentFigure, bool[,] buildingArea);
-        void ShowResult();
     }
 }

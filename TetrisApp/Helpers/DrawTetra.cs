@@ -6,7 +6,7 @@ namespace TetrisApp.Helpers
     //Вспомогательный статичный класс для отрисовки фигуры.
     static class DrawTetra
     {
-        public static void Draw(int xAxis, int yAxis, Tetramino figure)
+        public static void Draw(int xAxis, int yAxis, ITetramino figure)
         {
             for (int row = 0; row < figure.Body.GetLength(0); row++)
             {
