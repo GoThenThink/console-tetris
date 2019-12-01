@@ -1,16 +1,21 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using TetrisApp.Map;
 using TetrisApp.Objects;
 using TetrisApp.Helpers;
-using System.Threading.Tasks;
-using System.Threading;
+using TetrisDAL.Models;
+using TetrisDAL.DataOperations;
 
 namespace TetrisApp
 {
     //Класс, отвечающий за процесс игры.
     class Tetris : ITetris
     {
-        // Метод старта игры.
+        /// <summary>
+        /// Метод старта игры.
+        /// </summary>
         public void Play()
         {
             Console.Clear();
@@ -70,9 +75,13 @@ namespace TetrisApp
             }
             //Результаты текущей игры.
             map.GameData.ShowCurrentResults();
+            map.GameData.InsertIntoDB();
         }
 
-        // Метод отображения главного меню.
+        /// <summary>
+        ///  Рисуем главное меню.
+        /// </summary>
+        /// <param name="tetris"></param>
         public void MainMenuShow(ITetris tetris)
         {
             Console.Clear();
@@ -143,7 +152,7 @@ namespace TetrisApp
                             Environment.Exit(0);
                         else if (curPos == 1)
                         {
-    //                        _playerResults.Show(tetris);
+                            ShowRecordTable(tetris);
                             break;
                         }
                         else if (curPos == 0)
@@ -161,5 +170,94 @@ namespace TetrisApp
             }
         }
 
+        /// <summary>
+        /// Рисуем таблицу рекордов (данные считываем из БД).
+        /// </summary>
+        public void ShowRecordTable(ITetris tetris)
+        {
+            Console.Clear();
+            Console.WindowWidth = 50;
+            Console.BufferWidth = Console.WindowWidth;
+            Console.WindowHeight = 17;
+            Console.BufferHeight = Console.WindowHeight;
+
+            ResultsDAL results = new ResultsDAL(@"Data Source=(local)\SQLEXPRESS;
+                                    Integrated Security = true; 
+                                    Initial Catalog = TetrisApp");
+            List<TetrisResults> recordList = results.GetTopFive();
+
+            // Если записи в БД отсутствуют, то сообщаем, что запией нет.
+            if (recordList == null)
+            {
+                Console.WriteLine(" Записи отсутствуют.");
+                Console.SetCursorPosition(2, 15);
+                Console.Write("Нажмите пробел, чтобы вернуться в главное меню");
+                while (true)
+                {
+                    if (Console.KeyAvailable)
+                    {
+                        var key = Console.ReadKey();
+                        if (key.Key == ConsoleKey.Spacebar)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(0, 14);
+                            Console.WriteLine("                                      ");
+                        }
+                    }
+                    Thread.Sleep(100);
+                }
+                tetris.MainMenuShow(tetris);
+            }
+            else
+            {
+                string heading = "Пять лучших результатов";
+                int indexOfCentralPosition = (Console.WindowWidth - heading.Length) / 2;
+                Console.SetCursorPosition(indexOfCentralPosition, 1);
+                Console.Write(heading);
+
+                string table = String.Format("| {0, 1} | {1,-3} | {2,-4} | {3,-3} | {4,-10} |",
+                        "№", "Очки", "Время", "Линии", "Имя");
+                indexOfCentralPosition = (Console.WindowWidth - table.Length) / 2;
+                Console.SetCursorPosition(indexOfCentralPosition, 3);
+                Console.Write(table);
+                Console.SetCursorPosition(indexOfCentralPosition, 4);
+                Console.Write(String.Format("| {0, 1} | {1,-3} | {2,-4} | {3,-3} | {4,-10} |",
+                    "-", "----", "-----", "-----", "----------"));
+
+                for (int i = 0; i < recordList.Count; i++)
+                {
+                    Console.SetCursorPosition(indexOfCentralPosition, i + 5);
+                    Console.WriteLine(String.Format("| {0, 1} | {1,-4} | {2:00}:{3:00} | {4,-5} | {5,-10} |",
+                        i + 1, recordList[i].Points, TimeSpan.Parse(recordList[i].Time).Minutes, TimeSpan.Parse(recordList[i].Time).Seconds, recordList[i].Lines, recordList[i].Name));
+                    Console.SetCursorPosition(indexOfCentralPosition, i + 6);
+                }
+                Console.WriteLine("| {0, 1} | {1,-3} | {2,-4} | {3,-3} | {4,-10} |",
+                   "-", "----", "-----", "-----", "----------");
+
+                Console.WriteLine();
+                Console.WriteLine("Нажмите пробел, чтобы вернуться в главное меню");
+                while (true)
+                {
+                    if (Console.KeyAvailable)
+                    {
+                        var key = Console.ReadKey();
+                        if (key.Key == ConsoleKey.Spacebar)
+                        {
+                            tetris.MainMenuShow(tetris);
+                            break;
+                        }
+                        else
+                        {
+                            Console.SetCursorPosition(0, 14);
+                            Console.WriteLine("                                      ");
+                        }
+                    }
+                    Thread.Sleep(100);
+                }
+            }
+        }
     }
 }

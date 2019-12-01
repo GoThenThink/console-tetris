@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using TetrisDAL.DataOperations;
+using TetrisDAL.Models;
+
 
 namespace TetrisApp
 {
@@ -77,22 +80,23 @@ namespace TetrisApp
                 }
             }
         }
-    }
 
-    //Вспомогательный класс для сортировки по очкам.
-    class GameDataComparer : IComparer<GameData>
-    {
-        public int Compare(GameData x, GameData y)
+        /// <summary>
+        /// Вносим результаты в БД.
+        /// </summary>
+        public void InsertIntoDB()
         {
-            if (x.Points > y.Points)
+            ResultsDAL results = new ResultsDAL(@"Data Source=(local)\SQLEXPRESS;
+                                    Integrated Security = true; 
+                                    Initial Catalog = TetrisApp");
+            results.InsertNewRecord(new TetrisDAL.Models.TetrisResults
             {
-                return -1;
-            }
-            else if (x.Points < y.Points)
-            {
-                return 1;
-            }
-            else return 0;
+                Name = this.Name,
+                Points = this.Points,
+                Lines = this.CompletedLinesNumber,
+                Time = this.Time.ToString()
+            });
         }
+        
     }
 }
