@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using TetrisDAL.DataOperations;
+using TetrisDAL.Models;
 
 namespace TetrisApp
 {
@@ -13,6 +15,10 @@ namespace TetrisApp
         public int LastStreak = 0;
         public TimeSpan Time { get; set; }
 
+        /// <summary>
+        /// Метод подсчета статистики текущей игры.
+        /// </summary>
+        /// <param name="disappearedLines"></param>
         public void PointsCount(int disappearedLines)
         {
             LastStreak = disappearedLines;
@@ -34,6 +40,9 @@ namespace TetrisApp
             }
         }
 
+        /// <summary>
+        /// Результаты последней игры.
+        /// </summary>
         public void ShowCurrentResults()
         {
             Console.Clear();
@@ -54,7 +63,7 @@ namespace TetrisApp
                 Console.WriteLine();
                 Console.WriteLine(" Проведенное время: {0:00}:{1:00}\n", Time.Minutes, Time.Seconds);
                 Console.WriteLine();
-                Console.WriteLine(" Введите ваше имя (не более 8 симоволов)");
+                Console.WriteLine(" Введите ваше имя (не более 9 симоволов)");
                 Console.WriteLine();
                 playerName = Console.ReadLine();
                 Console.WriteLine();
@@ -77,22 +86,22 @@ namespace TetrisApp
                 }
             }
         }
-    }
 
-    //Вспомогательный класс для сортировки по очкам.
-    class GameDataComparer : IComparer<GameData>
-    {
-        public int Compare(GameData x, GameData y)
+        /// <summary>
+        /// Запись в БД.
+        /// </summary>
+        public void InsertIntoDB()
         {
-            if (x.Points > y.Points)
+            ResultsDAL results = new ResultsDAL();
+            results.InsertNewRecord(new TetrisDAL.Models.TetrisResults
             {
-                return -1;
-            }
-            else if (x.Points < y.Points)
-            {
-                return 1;
-            }
-            else return 0;
+                Name = this.Name,
+                Points = this.Points,
+                Lines = this.CompletedLinesNumber,
+                Time = this.Time.ToString()
+            });
         }
     }
+
+    
 }

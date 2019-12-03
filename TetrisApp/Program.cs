@@ -1,5 +1,8 @@
 ﻿using System;
 using TetrisApp.Helpers;
+using System.Data.SQLite;
+using TetrisDAL.DataOperations;
+using TetrisDAL.Models;
 
 namespace TetrisApp
 {
@@ -13,7 +16,6 @@ namespace TetrisApp
             {
                 tetris.MainMenuShow(tetris);
             }
-
         }
     }
 }
